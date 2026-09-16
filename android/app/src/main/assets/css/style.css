@@ -146,6 +146,16 @@ body {
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
 }
 
+.app-logo-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #FFD93D;
+  box-shadow: 0 4px 12px rgba(255, 89, 123, 0.35);
+  animation: bounceSoft 3s ease-in-out infinite;
+}
+
 .brand-title {
   font-size: 1.4rem;
   font-weight: 800;
