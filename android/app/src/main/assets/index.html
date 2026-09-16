@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奇奇英语乐园 - 儿童趣味英语启蒙与互动互动学习</title>
+  <meta name="description" content="专为儿童设计的生动趣味英语启蒙乐园，提供标准美式发音、自然拼读分解、麦克风语音评测与趣味互动拼词游戏。">
+
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- 引入圆润可爱的现代英文字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- 引入样式表 -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- 动态漂浮氛围泡泡 -->
+  <div class="bg-bubbles-layer" aria-hidden="true">
+    <div class="floating-bubble bubble-1"></div>
+    <div class="floating-bubble bubble-2"></div>
+    <div class="floating-bubble bubble-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- 顶部状态与导航栏 -->
+    <header class="header-bar">
+      <div class="brand-section">
+        <span class="app-logo-icon" role="img" aria-label="恐龙吉祥物">🦖</span>
+        <div>
+          <div class="brand-title">奇奇英语乐园</div>
+          <div class="brand-sub">Kids English Adventure</div>
+        </div>
+      </div>
+
+      <!-- 核心模式导航 Tab -->
+      <nav class="nav-tab-group" aria-label="页面主要模式导航">
+        <button class="nav-tab-btn active" data-view="view-explore" id="tab-nav-explore">
+          <span>🌟</span> 单词乐园
+        </button>
+        <button class="nav-tab-btn" data-view="view-games" id="tab-nav-games">
+          <span>🎮</span> 益智游乐场
+        </button>
+        <button class="nav-tab-btn" data-view="view-stickers" id="tab-nav-stickers">
+          <span>🏆</span> 贴纸成就册
+        </button>
+      </nav>
+
+      <!-- 用户成就数据统计 -->
+      <div class="user-stats-bar">
+        <div class="stat-chip" title="累计收集金星">
+          <span>⭐</span>
+          <span id="header-star-count">0</span>
+        </div>
+        <div class="stat-chip learned-chip" title="已掌握核心单词">
+          <span>📖</span>
+          <span id="header-learned-count">0 / 0</span>
+        </div>
+        <button class="icon-tool-btn" id="mute-btn" title="音效开关" aria-label="切换音效">🔊</button>
+        <button class="icon-tool-btn" id="reset-progress-btn" title="重新开始学习" aria-label="重置学习记录">🔄</button>
+      </div>
+    </header>
+
+    <!-- 顶部欢迎横幅与小恐龙导学伴读吉祥物 -->
+    <section class="welcome-hero-banner">
+      <div class="hero-text-content">
+        <h1>Hi, Little Explorer! 👋</h1>
+        <p>欢迎来到奇奇英语乐园！点击单词听发音，玩小游戏赢取金色小星星吧！</p>
+      </div>
+      <div class="hero-mascot-wrapper">
+        <div class="mascot-speech-bubble" id="mascot-bubble">
+          Let's have fun learning! 🎈
+        </div>
+        <div class="hero-mascot-avatar" id="mascot-avatar" title="点击我听欢快音效！" onclick="window.soundEngine.playBoing()">
+          🦕
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 视图 1: 单词探索乐园 (Word Explorer) ================= -->
+    <main class="view-section active" id="view-explore">
+      <!-- 搜索、沉浸模式与分类控制栏 -->
+      <div class="control-bar-wrapper">
+        <div class="search-filter-row">
+          <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="search-input" placeholder="输入英文单词或中文搜索 (例如: Cat, 苹果)..." autocomplete="off">
+          </div>
+
+          <label class="immersion-toggle-box" title="开启后将隐藏中文释义，进入全英浸润学习环境">
+            <span>纯英文沉浸模式</span>
+            <div class="toggle-switch">
+              <input type="checkbox" id="immersion-toggle">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <!-- 主题分类胶囊切换栏 -->
+        <div class="category-pills-row" id="category-pills">
+          <!-- 由 JS 动态渲染 -->
+        </div>
+      </div>
+
+      <!-- 单词大卡片网格展示区 -->
+      <div class="words-grid-container" id="words-grid">
+        <!-- 由 JS 动态渲染各单词卡片 -->
+      </div>
+    </main>
+
+    <!-- ================= 视图 2: 益智游乐场 (Fun Minigames) ================= -->
+    <section class="view-section" id="view-games">
+      <div class="game-center-container">
+        <!-- 游戏子类别切换导航 -->
+        <div class="game-sub-nav">
+          <button class="game-sub-tab active" data-game="listen" id="subtab-listen">
+            <span>👂</span> 听音辨图
+          </button>
+          <button class="game-sub-tab" data-game="spell" id="subtab-spell">
+            <span>🧩</span> 字母积木拼词
+          </button>
+          <button class="game-sub-tab" data-game="memory" id="subtab-memory">
+            <span>🃏</span> 神奇记忆翻牌
+          </button>
+        </div>
+
+        <!-- 游戏 1: 听音辨图 -->
+        <div id="game-area-listen" class="game-play-panel">
+          <div class="game-round-info">
+            <span id="g1-round-text">第 1 / 10 题</span>
+            <span id="g1-score-text">得分: 0</span>
+          </div>
+
+          <div class="g1-question-hero">
+            <button class="speaker-big-button" id="g1-speaker-btn" title="点击再听一遍" onclick="miniGames.playCurrentListenAudio()">
+              🔊
+            </button>
+            <div class="speaker-hint-label">点击喇叭听发音，选择正确的图案！</div>
+          </div>
+
+          <div class="g1-options-grid" id="g1-options-container">
+            <!-- 动态生成 4 个选项卡片 -->
+          </div>
+
+          <div class="g-feedback" id="g1-feedback"></div>
+        </div>
+
+        <!-- 游戏 2: 拼字积木 -->
+        <div id="game-area-spell" class="game-play-panel" style="display: none;">
+          <div class="game-round-info">
+            <span id="g2-round-text">第 1 / 6 词</span>
+            <span>⭐ 每次拼对奖励 2 颗星</span>
+          </div>
+
+          <div class="spell-target-card">
+            <div class="spell-target-icon" id="g2-target-icon">🍎</div>
+            <div class="spell-target-meaning" id="g2-target-meaning">苹果</div>
+          </div>
+
+          <!-- 拼写插槽 -->
+          <div class="spell-slots-row" id="g2-slots-container">
+            <!-- 动态生成字母空格 -->
+          </div>
+
+          <!-- 乱序积木字母池 -->
+          <div class="letter-blocks-pool" id="g2-blocks-container">
+            <!-- 动态生成字母积木 -->
+          </div>
+
+          <div class="spell-action-tools">
+            <button class="btn btn-secondary" onclick="miniGames.undoSpell()">
+              ↩️ 撤回一步
+            </button>
+            <button class="btn btn-primary" onclick="window.soundEngine.speak(miniGames.g2.currentWord.word)">
+              🔊 听发音提示
+            </button>
+          </div>
+        </div>
+
+        <!-- 游戏 3: 奇妙记忆翻牌 -->
+        <div id="game-area-memory" class="game-play-panel" style="display: none;">
+          <div class="game-round-info">
+            <span>找到所有相同的单词与图案对！</span>
+            <button class="btn btn-sm btn-secondary" onclick="miniGames.startMemoryGame()">
+              🔄 重新洗牌
+            </button>
+          </div>
+
+          <div class="memory-board-grid" id="memory-grid">
+            <!-- 动态生成 8 张 3D 翻牌卡片 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 视图 3: 贴纸与成就手帐 (Sticker Album) ================= -->
+    <section class="view-section" id="view-stickers">
+      <div class="stickers-album-container">
+        <h2>🎖️ 我的英语探索荣誉册</h2>
+        <p style="color: var(--text-secondary); margin-top: 4px;">
+          完成日常朗读、拼读和游戏关卡，收集闪亮金星解锁全部勋章贴纸！
+        </p>
+
+        <div class="stickers-grid" id="stickers-container">
+          <!-- 动态渲染各成就贴纸 -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= 全局弹窗 1: 麦克风跟读评测弹窗 ================= -->
+  <div class="modal-overlay" id="mic-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="mic-modal-close" aria-label="关闭弹窗">✕</button>
+
+      <div class="mic-hero-icon" id="mic-modal-icon">🦁</div>
+      <div class="mic-hero-word" id="mic-modal-word">Lion</div>
+      <div class="mic-hero-ipa" id="mic-modal-ipa">/ˈlaɪ.ən/</div>
+
+      <button class="mic-pulse-circle" id="mic-action-trigger" title="点击开始跟读录音">
+        🎙️
+      </button>
+
+      <div id="mic-modal-feedback">
+        <!-- 动态显示跟读波形或星级评分结果 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 全局弹窗 2: 勋章解锁庆祝弹窗 ================= -->
+  <div class="modal-overlay" id="badge-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="border-color: #FCD34D;">
+      <button class="modal-close-btn" id="badge-modal-close" aria-label="关闭弹窗">✕</button>
+      <div style="font-size: 4.5rem; margin-bottom: 10px;" id="badge-modal-icon">🏆</div>
+      <h2 style="color: #D97706; margin-bottom: 8px;">🎉 恭喜解锁新荣誉！</h2>
+      <h3 id="badge-modal-title" style="font-size: 1.4rem; color: var(--text-main);">初探小天才</h3>
+      <p id="badge-modal-desc" style="color: var(--text-secondary); margin: 10px 0 20px 0;">学习并掌握第 1 个英语单词</p>
+      <button class="btn btn-primary btn-bounce" onclick="document.getElementById('badge-modal').classList.remove('active')">
+        收下新贴纸！✨
+      </button>
+    </div>
+  </div>
+
+  <!-- 引入 JavaScript 业务模块（按依赖层级加载） -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/rewards.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

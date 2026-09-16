@@ -1,0 +1,25 @@
+{
+  "name": "奇奇英语乐园 - Kids English Adventure",
+  "short_name": "奇奇英语",
+  "description": "专为儿童设计的生动趣味英语启蒙乐园，提供标准美式发音、自然拼读分解、麦克风语音评测与趣味互动拼词游戏。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEF6FF",
+  "theme_color": "#4F46E5",
+  "categories": ["education", "kids", "games"],
+  "icons": [
+    {
+      "src": "css/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "css/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
