@@ -1,4 +1,4 @@
-# 🦕 奇奇英语乐园 (Kids English Adventure)
+# 🦕 安安英语乐园 (AMBER English Adventure)
 
 一款专为 3-9 岁儿童打造的现代、轻量、高互动趣味英语启蒙与自然拼读 Web 应用程序。
 

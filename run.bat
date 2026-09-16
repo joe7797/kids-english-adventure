@@ -1,9 +1,9 @@
 @echo off
 chcp 65001 >nul
-title 奇奇英语乐园 - 启动中
+title 安安英语乐园 - 启动中
 cls
 echo ======================================================
-echo          奇奇英语乐园 (Kids English Adventure) 
+echo          安安英语乐园 (AMBER English Adventure) 
 echo ======================================================
 echo 正在启动英语乐园...
 echo [提示] 关闭本窗口即可停止本地服务

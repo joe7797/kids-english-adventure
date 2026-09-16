@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
         }
 
+        // 强制音量物理键控制媒体音量（避免误调成通话/铃声音量）
+        setVolumeControlStream(android.media.AudioManager.STREAM_MUSIC);
+
         webView = new WebView(this);
         setContentView(webView);
 
@@ -51,9 +54,14 @@ public class MainActivity extends AppCompatActivity {
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
 
-        // 本地文件与资源访问
+        // 本地文件与资源跨域访问权限（允许本地 HTML5 加载高质量音频流）
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
 
         // 允许自动播放儿童互动音效，无需额外手势激活
         settings.setMediaPlaybackRequiresUserGesture(false);
