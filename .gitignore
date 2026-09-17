@@ -16,3 +16,7 @@ Thumbs.db
 
 # Temporary zip
 kids-english-app-package.zip
+
+# Nested subproject
+speech-to-speech/
+
